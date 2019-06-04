@@ -25,7 +25,7 @@ SECRET_KEY = 'odf*8bl)*b@fpkbnp7gd$#k#)8)=&wkgq^2gfqbfzqp+#$)zb_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['audio.wi.pb.edu.pl']
 
 
 # Application definition
@@ -78,9 +78,17 @@ WSGI_APPLICATION = 'binpoll_back.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'binpoll',
+        'USER': 'binpoll',
+        'PASSWORD': 'binpoll',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -122,9 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200'
+    'http://audio.wi.pb.edu.pl'
 ]
