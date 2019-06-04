@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import PollData
+from . import models
 
-admin.site.register(PollData)
+admin.site.register(models.PollData)
+admin.site.register(models.AudioSample)
+admin.site.register(models.AudioSet)
 
 # Register your models here.

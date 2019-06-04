@@ -21,6 +21,7 @@ from data_collector.models import PollData
 
 router = routers.DefaultRouter()
 router.register(r'poll_data', views.PollDataViewSet)
+router.register(r'audio_set', views.AudioSetViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

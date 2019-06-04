@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from data_collector.serializers import PollDataSerialier
-from data_collector.models import PollData
+from data_collector.serializers import PollDataSerialier, AudioSetSerializer
+from data_collector.models import PollData, AudioSet
 from rest_framework import mixins
 
 class PollDataViewSet(mixins.CreateModelMixin,
@@ -12,10 +12,11 @@ class PollDataViewSet(mixins.CreateModelMixin,
     queryset = PollData.objects.all()
     serializer_class = PollDataSerialier
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         data = {**request.data}
         data['user_agent'] = request.META['HTTP_USER_AGENT']
         data['ip_address'] = request.META['REMOTE_ADDR']
+        data['assigned_set_id'] = 1
 
         serializer = PollDataSerialier(data=data)
         serializer.is_valid(raise_exception=True)
@@ -28,3 +29,12 @@ class PollDataViewSet(mixins.CreateModelMixin,
         serializer = PollDataSerialier(self.queryset, many=True)
         return Response(serializer.data)
     
+class AudioSetViewSet(mixins.ListModelMixin,
+                            viewsets.GenericViewSet):
+    
+    queryset = AudioSet.objects.all()
+    serializer_class = AudioSetSerializer
+
+    def list(self, request, *args, **kwargs):
+        serializer = AudioSetSerializer(self.queryset, many=True)
+        return Response(serializer.data)
