@@ -18,3 +18,4 @@ class AudioSetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AudioSet
         fields = ('id', 'samples')
+
