@@ -4,6 +4,9 @@ from django.db import models
 class AudioSample(models.Model):
     id = models.AutoField(primary_key=True)
     filepath = models.CharField(max_length=256)
+
+    def __str__(self):
+        return 'Sample: {}'.format(self.filepath)
  
 class AudioSet(models.Model):
     id = models.AutoField(primary_key=True)

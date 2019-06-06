@@ -81,18 +81,18 @@ WSGI_APPLICATION = 'binpoll_back.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
 #    'default': {
-#        'ENGINE': 'django.db.backends.mysql', 
-#        'NAME': 'binpoll',
-#        'USER': 'binpoll',
-#        'PASSWORD': 'binpoll',
-#        'HOST': 'localhost',
-#        'PORT': '3306',
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'binpoll',
+        'USER': 'binpoll',
+        'PASSWORD': 'binpoll',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
 }
 
 
