@@ -26,8 +26,8 @@ SECRET_KEY = 'odf*8bl)*b@fpkbnp7gd$#k#)8)=&wkgq^2gfqbfzqp+#$)zb_'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-#    'audio.wi.pb.edu.pl'
-    '127.0.0.1'
+    'audio.wi.pb.edu.pl'
+#    '127.0.0.1'
 ]
 
 
