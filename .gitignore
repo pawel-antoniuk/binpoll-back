@@ -1,3 +1,6 @@
 /venv
 **/__pycache__
-**/settings.py
+settings.py
+migrations/
+/binpoll_back/static
+/binpoll_back/data_collector/poll_sounds/*
