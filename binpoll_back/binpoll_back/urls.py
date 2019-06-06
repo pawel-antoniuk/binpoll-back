@@ -25,5 +25,6 @@ router.register(r'audio_set', views.AudioSetViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('generate_set/', views.AudioSetViewSet.as_view({'get': 'get'})),
     path('admin/', admin.site.urls),
 ]

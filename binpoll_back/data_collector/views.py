@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from data_collector.serializers import PollDataSerialier, AudioSetSerializer
 from data_collector.models import PollData, AudioSet
 from rest_framework import mixins
+from django.shortcuts import get_object_or_404
 
 class PollDataViewSet(mixins.CreateModelMixin,
                         mixins.ListModelMixin,
@@ -34,6 +35,11 @@ class AudioSetViewSet(mixins.ListModelMixin,
     
     queryset = AudioSet.objects.all()
     serializer_class = AudioSetSerializer
+
+    def get(self, request):
+        audio_set = get_object_or_404(self.queryset, pk=1)
+        serializer = AudioSetSerializer(audio_set)
+        return Response(serializer.data)
 
     def list(self, request, *args, **kwargs):
         serializer = AudioSetSerializer(self.queryset, many=True)

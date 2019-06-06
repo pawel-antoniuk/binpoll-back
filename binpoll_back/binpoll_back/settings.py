@@ -25,7 +25,10 @@ SECRET_KEY = 'odf*8bl)*b@fpkbnp7gd$#k#)8)=&wkgq^2gfqbfzqp+#$)zb_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['audio.wi.pb.edu.pl']
+ALLOWED_HOSTS = [
+#    'audio.wi.pb.edu.pl'
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -133,7 +136,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = False
-CORS_ORIGIN_WHITELIST = [
-    'http://audio.wi.pb.edu.pl'
-]
+#CORS_ALLOW_CREDENTIALS = False
+#CORS_ORIGIN_WHITELIST = [
+#    'http://audio.wi.pb.edu.pl'
+#    'https://127.0.0.1:4200'
+#    'http://localhost:4200'
+#]
+CORS_ORIGIN_ALLOW_ALL = True 
