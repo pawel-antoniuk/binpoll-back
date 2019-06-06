@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class AudioSample(models.Model):
     id = models.AutoField(primary_key=True)
     filepath = models.CharField(max_length=256)

@@ -17,9 +17,9 @@ class PollDataViewSet(mixins.CreateModelMixin,
         data = {**request.data}
         data['user_agent'] = request.META['HTTP_USER_AGENT']
         data['ip_address'] = request.META['REMOTE_ADDR']
-        data['assigned_set_id'] = 1
+        data['assigned_set'] = data['assigned_set_id']
 
-        serializer = PollDataSerialier(data=data)
+        serializer = PollDataSerialier(data=data)        
         serializer.is_valid(raise_exception=True)
         serializer.save()
         
