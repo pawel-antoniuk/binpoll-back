@@ -24,3 +24,6 @@ class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     poll_data = models.ForeignKey(PollData, on_delete=models.CASCADE)
     message = models.TextField()
+
+    def __str__(self):
+        return 'Comment: {}'.format(self.message)
