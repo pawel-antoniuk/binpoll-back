@@ -22,7 +22,7 @@ class PollData(models.Model):
     age = models.CharField(max_length=32)
     hearing_difficulties = models.BooleanField()
     listening_test_participated = models.BooleanField()
-    headphones_make_and_model = models.CharField(max_length=512)
+    headphones_make_and_model = models.CharField(max_length=512, blank=True, default='')
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
