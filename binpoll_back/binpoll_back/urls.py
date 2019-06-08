@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 from data_collector import views
 from data_collector.models import PollData
+from rest_framework.documentation import include_docs_urls
 
 router = routers.DefaultRouter()
 router.register(r'poll_data', views.PollDataViewSet)
@@ -28,4 +29,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('generate_set/', views.AudioSetViewSet.as_view({'get': 'get'})),
     path('admin/', admin.site.urls),
+    url(r'^docs/', include_docs_urls(title='Binpoll API'))
 ]
