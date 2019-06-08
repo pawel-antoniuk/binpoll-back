@@ -19,7 +19,7 @@ class PollData(models.Model):
     answer = models.CharField(max_length=512)
     user_agent = models.TextField()
     ip_address = models.GenericIPAddressField()
-    age = models.IntegerField()
+    age = models.CharField(max_length=32)
     hearing_difficulties = models.BooleanField()
     listening_test_participated = models.BooleanField()
     headphones_make_and_model = models.CharField(max_length=512)
