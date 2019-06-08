@@ -19,3 +19,8 @@ class PollData(models.Model):
     answer = models.CharField(max_length=512)
     user_agent = models.TextField()
     ip_address = models.GenericIPAddressField()
+
+class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    poll_data = models.ForeignKey(PollData, on_delete=models.CASCADE)
+    message = models.TextField()

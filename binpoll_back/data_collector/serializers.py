@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from data_collector.models import PollData, AudioSet, AudioSample
+from data_collector.models import PollData, AudioSet, AudioSample, Comment
 
 class PollDataSerialier(serializers.HyperlinkedModelSerializer):
     assigned_set = serializers.PrimaryKeyRelatedField(queryset=AudioSet.objects.all())
@@ -19,3 +19,8 @@ class AudioSetSerializer(serializers.HyperlinkedModelSerializer):
         model = AudioSet
         fields = ('id', 'samples')
 
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    poll_data = serializers.PrimaryKeyRelatedField(queryset=PollData.objects.all())
+    class Meta:
+        model = Comment
+        fields = ('id', 'poll_data', 'message')

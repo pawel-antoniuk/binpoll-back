@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from data_collector.serializers import PollDataSerialier, AudioSetSerializer
-from data_collector.models import PollData, AudioSet
+from data_collector.serializers import PollDataSerialier, AudioSetSerializer, CommentSerializer
+from data_collector.models import PollData, AudioSet, Comment
 from rest_framework import mixins
 from django.shortcuts import get_object_or_404
 
@@ -44,3 +44,17 @@ class AudioSetViewSet(mixins.ListModelMixin,
     def list(self, request, *args, **kwargs):
         serializer = AudioSetSerializer(self.queryset, many=True)
         return Response(serializer.data)
+
+class CommentViewSet(mixins.CreateModelMixin,
+                        viewsets.GenericViewSet):
+    
+    queryset = Comment.objects.all()
+    serializer_class = Comment
+
+    def create(self, request, *args, **kwargs):
+        serializer = CommentSerializer(data=request.data)        
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
