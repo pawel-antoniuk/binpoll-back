@@ -49,7 +49,7 @@ class CommentViewSet(mixins.CreateModelMixin,
                         viewsets.GenericViewSet):
     
     queryset = Comment.objects.all()
-    serializer_class = Comment
+    serializer_class = CommentSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = CommentSerializer(data=request.data)        
