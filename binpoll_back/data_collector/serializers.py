@@ -5,7 +5,9 @@ class PollDataSerialier(serializers.HyperlinkedModelSerializer):
     assigned_set = serializers.PrimaryKeyRelatedField(queryset=AudioSet.objects.all())
     class Meta:
         model = PollData
-        fields = ('id', 'start_date', 'end_date', 'assigned_set', 'answer', 'user_agent', 'ip_address')
+        fields = ('id', 'start_date', 'end_date', 'assigned_set', 'answer',
+                  'user_agent', 'ip_address', 'age', 'hearing_difficulties',
+                  'listening_test_participated', 'headphones_make_and_model')
 
 class AudioSampleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
