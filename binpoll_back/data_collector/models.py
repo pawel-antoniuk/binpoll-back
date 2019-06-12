@@ -25,7 +25,7 @@ class PollData(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     answer = models.CharField(max_length=512)
-    asigned_set = models.ForeignKey(AudioSet, on_delete=models.CASCADE)
+    assigned_set = models.ForeignKey(AudioSet, on_delete=models.CASCADE)
     user_info = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
 
 class Comment(models.Model):
