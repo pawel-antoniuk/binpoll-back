@@ -25,6 +25,7 @@ router = routers.DefaultRouter()
 router.register(r'poll_data', views.PollDataViewSet)
 router.register(r'audio_set', views.AudioSetViewSet)
 router.register(r'comment', views.CommentViewSet)
+router.register(r'problem', views.ProblemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
