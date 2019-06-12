@@ -1,13 +1,24 @@
 from rest_framework import serializers
-from data_collector.models import PollData, AudioSet, AudioSample, Comment
+from data_collector.models import PollData, AudioSet, AudioSample, Comment, UserInfo, Problem
+
+class UserInfoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserInfo
+        fields = ('id', 'user_agent', 'ip_address', 'age', 'hearing_difficulties',
+                  'listening_test_participated', 'headphones_make_and_model')
 
 class PollDataSerialier(serializers.HyperlinkedModelSerializer):
     assigned_set = serializers.PrimaryKeyRelatedField(queryset=AudioSet.objects.all())
+    user_info = UserInfoSerializer(many=False)
     class Meta:
         model = PollData
         fields = ('id', 'start_date', 'end_date', 'assigned_set', 'answer',
-                  'user_agent', 'ip_address', 'age', 'hearing_difficulties',
-                  'listening_test_participated', 'headphones_make_and_model')
+                  'user_info')
+    def create(self, validated_data):
+        user_info = validated_data.pop('user_info')
+        poll_data = PollData.objects.create(**validated_data)
+        UserInfo.objects.create(**user_info)
+        return poll_data
 
 class AudioSampleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -26,3 +37,14 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'poll_data', 'message')
+
+class ProblemSerializer(serializers.HyperlinkedModelSerializer):
+    user_info = UserInfoSerializer(many=False)
+    class Meta:
+        model = Problem
+        fields = ('id', 'message', 'user_info')
+    def create(self, validated_data):
+        user_info = validated_data.pop('user_info')
+        problem = Problem.objects.create(**validated_data)
+        UserInfo.objects.create(**user_info)
+        return problem
