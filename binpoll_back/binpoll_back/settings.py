@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
 #    'audio.wi.pb.edu.pl'
-    '127.0.0.1'
+#    '127.0.0.1'
+    '*'
 ]
 
 
@@ -81,18 +82,18 @@ WSGI_APPLICATION = 'binpoll_back.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql', 
-#        'NAME': 'binpoll',
-#        'USER': 'binpoll',
-#        'PASSWORD': 'binpoll',
-#        'HOST': 'localhost',
-#        'PORT': '3306',
-#    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+   'default': {
+       'ENGINE': 'django.db.backends.mysql', 
+       'NAME': os.environ['BINPOLL_DB_NAME'],
+       'USER': os.environ['BINPOLL_DB_USER'],
+       'PASSWORD': os.environ['BINPOLL_DB_PASS'],
+       'HOST': os.environ['BINPOLL_DB_HOST'],
+       'PORT': os.environ['BINPOLL_DB_PORT']
+   }
 }
 
 
