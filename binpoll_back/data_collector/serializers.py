@@ -16,8 +16,10 @@ class PollDataSerialier(serializers.HyperlinkedModelSerializer):
                   'user_info')
     def create(self, validated_data):
         user_info = validated_data.pop('user_info')
+        user_info_obj = UserInfo.objects.create(**user_info)
+        user_info_obj.save()
+        validated_data['user_info_id'] = user_info_obj.pk 
         poll_data = PollData.objects.create(**validated_data)
-        UserInfo.objects.create(**user_info)
         return poll_data
 
 class AudioSampleSerializer(serializers.HyperlinkedModelSerializer):

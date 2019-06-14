@@ -13,8 +13,8 @@ class AudioSet(models.Model):
 
 class UserInfo(models.Model):
     id = models.AutoField(primary_key=True)
-    user_agent = models.TextField()
-    ip_address = models.GenericIPAddressField()
+    user_agent = models.TextField(blank=True)
+    ip_address = models.GenericIPAddressField(null=True)
     age = models.CharField(max_length=32)
     hearing_difficulties = models.BooleanField()
     listening_test_participated = models.BooleanField()
