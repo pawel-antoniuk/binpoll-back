@@ -7,5 +7,7 @@ admin.site.register(models.AudioSet)
 admin.site.register(models.UserInfo)
 admin.site.register(models.Problem)
 admin.site.register(models.Comment)
+admin.site.register(models.PollAnswer)
+
 
 # Register your models here.

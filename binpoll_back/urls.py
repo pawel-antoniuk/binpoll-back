@@ -20,6 +20,7 @@ from rest_framework import routers
 from data_collector import views
 from data_collector.models import PollData
 from rest_framework.documentation import include_docs_urls
+from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r'poll_data', views.PollDataViewSet)
@@ -31,5 +32,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('generate_set/', views.AudioSetViewSet.as_view({'get': 'get'})),
     path('admin/', admin.site.urls),
-    url(r'^docs/', include_docs_urls(title='Binpoll API'))
+    url(r'^docs/', include_docs_urls(title='Binpoll API')),
+    path('summary/<int:pk>/', views.SummaryView.as_view()),
 ]
+#urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'csv'])

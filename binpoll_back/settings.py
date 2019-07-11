@@ -92,7 +92,15 @@ DATABASES = {
        'USER': os.environ['BINPOLL_DB_USER'],
        'PASSWORD': os.environ['BINPOLL_DB_PASS'],
        'HOST': os.environ['BINPOLL_DB_HOST'],
-       'PORT': os.environ['BINPOLL_DB_PORT']
+       'PORT': os.environ['BINPOLL_DB_PORT'],
+       'OPTIONS': {
+            'sql_mode': 'TRADITIONAL',
+            'charset': 'utf8',
+            'init_command': 'SET '
+                'storage_engine=INNODB,'
+                'character_set_connection=utf8,'
+                'collation_connection=utf8_bin'
+        }
    }
 }
 
@@ -144,3 +152,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 #    'http://localhost:4200'
 #]
 CORS_ORIGIN_ALLOW_ALL = True 
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework_csv.renderers.CSVRenderer',
+    )
+}
