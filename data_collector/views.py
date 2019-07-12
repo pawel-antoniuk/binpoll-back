@@ -7,6 +7,7 @@ from data_collector.models import PollData, AudioSet, Comment, Problem, UserInfo
 from rest_framework import mixins
 from django.shortcuts import get_object_or_404
 import random
+from datetime import datetime
 
 class PollDataViewSet(mixins.CreateModelMixin,
                         mixins.ListModelMixin,
@@ -41,8 +42,20 @@ class AudioSetViewSet(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         audio_set = get_object_or_404(self.queryset, pk=1)
         serializer = AudioSetSerializer(audio_set)
-        random.shuffle(serializer.data['samples'])
-        return Response(serializer.data)
+        data = serializer.data
+
+        # set explicit seed
+        random.seed(datetime.now())
+        seed = random.randint(1, 9999)
+        random.seed(seed)
+
+        data['seed'] = seed
+        random.shuffle(data['samples'])
+        data['sampleNames'] = [s for s in data['samples']]
+        data['samples'] = [ 
+            random.sample([s + '_scene1_FB.wav', s + '_scene2_BF.wav', s + '_scene3_FF.wav'], 3) 
+            for s in data['samples']]        
+        return Response(data)
 
     def list(self, request, *args, **kwargs):
         serializer = AudioSetSerializer(self.queryset, many=True)
@@ -96,9 +109,8 @@ class SummaryView(views.APIView):
         poll_datas = PollData.objects.filter(assigned_set_id=pk)
         
         for sample in audio_set.samples.all():
-            answer = {}
-            
             # FB
+            answer = {}
             answer['sample'] = sample.filepath + "_scene1_FB.wav"
             answer['user_answers'] = []
             for poll_data in poll_datas:
@@ -107,18 +119,22 @@ class SummaryView(views.APIView):
             answers.append(answer)
 
             # BF
+            answer = {}
             answer['sample'] = sample.filepath + "_scene2_BF.wav"
             answer['user_answers'] = []
             for poll_data in poll_datas:
                 poll_answer = PollAnswer.objects.get(sample_id=sample.filepath, poll_data_id=poll_data.pk)
                 answer['user_answers'].append(poll_answer.answer_BF)
+            answers.append(answer)
 
             # FF
+            answer = {}
             answer['sample'] = sample.filepath + "_scene3_FF.wav"
             answer['user_answers'] = []
             for poll_data in poll_datas:
                 poll_answer = PollAnswer.objects.get(sample_id=sample.filepath, poll_data_id=poll_data.pk)
                 answer['user_answers'].append(poll_answer.answer_FF)
+            answers.append(answer)
 
         # answer_id
         answer = SummaryView.generate_answer(poll_datas, 'answer_id', lambda poll_data : poll_data.id)

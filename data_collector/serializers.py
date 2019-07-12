@@ -17,7 +17,7 @@ class PollAnswerSerializer(serializers.HyperlinkedModelSerializer):
 class PollDataSerialier(serializers.HyperlinkedModelSerializer):
     assigned_set = serializers.PrimaryKeyRelatedField(queryset=AudioSet.objects.all())
     user_info = UserInfoSerializer(many=False)
-    answers = serializers.DictField(child=serializers.CharField(), write_only=True)
+    answers = serializers.DictField(write_only=True)
     class Meta:
         model = PollData
         fields = ('id', 'start_date', 'end_date', 'assigned_set', 'answers',
